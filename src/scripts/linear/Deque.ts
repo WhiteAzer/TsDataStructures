@@ -19,46 +19,46 @@ interface IDeque<T> {
 }
 
 export class Deque<T> implements IDeque<T> {
-  private list: LinkedList<T>
+  private _list: LinkedList<T>
 
   constructor( list?: LinkedList<T> ) {
-    this.list = list || new LinkedList<T>()
+    this._list = list || new LinkedList<T>()
   }
 
   [ Symbol.iterator ]() {
-    return this.list[ Symbol.iterator ]()
+    return this._list[ Symbol.iterator ]()
   }
 
   dequeueFirst(): T {
-    return this.list.removeFirst()
+    return this._list.removeFirst()
   }
 
   dequeueLast(): T {
-    return this.list.removeLast()
+    return this._list.removeLast()
   }
 
   enqueueFirst( data: T ): void {
-    this.list.prepend( data )
+    this._list.prepend( data )
   }
 
   enqueueLast( data: T ): void {
-    this.list.append( data )
+    this._list.append( data )
   }
 
   getLength(): number {
-    return this.list.getLength()
+    return this._list.getLength()
   }
 
   isEmpty(): boolean {
-    return this.list.isEmpty()
+    return this._list.isEmpty()
   }
 
   peekFLast(): T | null {
-    return this.isEmpty() ? null : this.list.toArray()[ this.getLength() - 1 ]
+    return this.isEmpty() ? null : this._list.toArray()[ this.getLength() - 1 ]
   }
 
   peekFirst(): T | null {
-    return this.isEmpty() ? null : this.list.toArray()[ 0 ]
+    return this.isEmpty() ? null : this._list.toArray()[ 0 ]
   }
 
 }

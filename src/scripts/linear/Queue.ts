@@ -13,34 +13,34 @@ interface IQueue<T> {
 }
 
 export class Queue<T> implements IQueue<T> {
-  private list: LinkedList<T>
+  private _list: LinkedList<T>
 
   constructor( list?: LinkedList<T> ) {
-    this.list = list || new LinkedList<T>()
+    this._list = list || new LinkedList<T>()
   }
 
   [ Symbol.iterator ]() {
-    return this.list[ Symbol.iterator ]()
+    return this._list[ Symbol.iterator ]()
   }
 
   dequeue(): T {
-    return this.list.removeFirst()
+    return this._list.removeFirst()
   }
 
   enqueue( data: T ): void {
-    this.list.append( data )
+    this._list.append( data )
   }
 
   peek(): T | null {
-    return this.isEmpty() ? null : this.list.toArray()[ 0 ]
+    return this.isEmpty() ? null : this._list.toArray()[ 0 ]
   }
 
   getLength(): number {
-    return  this.list.getLength()
+    return  this._list.getLength()
   }
 
   isEmpty(): boolean {
-    return this.list.isEmpty()
+    return this._list.isEmpty()
   }
 
 }

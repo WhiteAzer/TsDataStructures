@@ -28,29 +28,29 @@ interface ILinkedList<T> {
 }
 
 export class LinkedList<T> implements ILinkedList<T> {
-  private head: Node<T> | null = null
-  private tail: Node<T> | null = null
+  private _head: Node<T> | null = null
+  private _tail: Node<T> | null = null
 
   constructor( array?: Array<T> ) {
     if ( array ) {
       array.reduce( ( prev: Node<T>, current: T ) => {
         const node = new Node<T>( current )
         if ( !prev ) {
-          this.head = node
-          this.tail = node
+          this._head = node
+          this._tail = node
         } else {
           node.prev = prev
           prev.next = node
-          this.tail = node
+          this._tail = node
         }
 
-        return this.tail
+        return this._tail
       }, null )
     }
   }
 
   * [ Symbol.iterator ]() {
-    let current = this.head
+    let current = this._head
     while ( current ) {
       yield current.data
       current = current.next
@@ -60,26 +60,26 @@ export class LinkedList<T> implements ILinkedList<T> {
   public append( data: T ): void {
     let node = new Node( data )
 
-    if ( !this.head ) {
-      this.head = node
-      this.tail = node
+    if ( !this._head ) {
+      this._head = node
+      this._tail = node
     } else {
-      node.prev = this.tail
-      this.tail.next = node
-      this.tail = node
+      node.prev = this._tail
+      this._tail.next = node
+      this._tail = node
     }
   }
 
   public prepend( data: T ): void {
     let node = new Node( data )
 
-    if ( !this.head ) {
-      this.head = node
-      this.tail = node
+    if ( !this._head ) {
+      this._head = node
+      this._tail = node
     } else {
-      node.next = this.head
-      this.head.prev = node
-      this.head = node
+      node.next = this._head
+      this._head.prev = node
+      this._head = node
     }
   }
 
@@ -114,16 +114,16 @@ export class LinkedList<T> implements ILinkedList<T> {
   }
 
   public removeFirst(): T | null {
-    return this.head ? this.removeNode( this.head ) : null
+    return this._head ? this.removeNode( this._head ) : null
   }
 
   public removeLast(): T | null {
-    return this.tail ? this.removeNode( this.tail ) : null
+    return this._tail ? this.removeNode( this._tail ) : null
   }
 
   public removeAll(): void {
-    this.head = null
-    this.tail = null
+    this._head = null
+    this._tail = null
   }
 
   public removeAt( index: number ): T | null {
@@ -140,7 +140,7 @@ export class LinkedList<T> implements ILinkedList<T> {
   }
 
   public isEmpty(): boolean {
-    return !this.head
+    return !this._head
   }
 
   public getLength(): number {
@@ -150,18 +150,18 @@ export class LinkedList<T> implements ILinkedList<T> {
   public toArray(): T[ ] {
     const array: Array<T> = []
 
-    if ( !this.head ) return array
+    if ( !this._head ) return array
 
     const pushToArray = ( node: Node<T> ): Array<T> => {
       array.push( node.data )
       return node.next ? pushToArray( node.next ) : array
     }
 
-    return pushToArray( this.head );
+    return pushToArray( this._head );
   }
 
   private find( data: T ): Node<T> | null {
-    let current = this.head
+    let current = this._head
 
     while ( current ) {
       if ( _.isEqual( current.data, data ) ) {
@@ -181,14 +181,14 @@ export class LinkedList<T> implements ILinkedList<T> {
     let current: Node<T>
 
     if ( index <= length / 2 ) {
-      current = this.head
+      current = this._head
 
       while ( index > 0 ) {
         current = current.next
         index--
       }
     } else {
-      current = this.tail
+      current = this._tail
 
       while ( length > index + 1 ) {
         current = current.prev
@@ -203,11 +203,11 @@ export class LinkedList<T> implements ILinkedList<T> {
     if ( !node.prev && !node.next ) {
       this.removeAll()
     } else if ( !node.prev ) {
-      this.head = node.next
-      this.head.prev = null
+      this._head = node.next
+      this._head.prev = null
     } else if ( !node.next ) {
-      this.tail = node.prev
-      this.tail.next = null
+      this._tail = node.prev
+      this._tail.next = null
     } else {
       node.prev.next = node.next
       node.next.prev = node.prev
