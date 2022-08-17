@@ -11,6 +11,8 @@ interface IBinarySearchTree<T> {
   removeAll(): void
 
   getLength(): number
+
+  isEmpty(): boolean
 }
 
 export class BinarySearchTree<T> implements IBinarySearchTree<T> {
@@ -118,6 +120,10 @@ export class BinarySearchTree<T> implements IBinarySearchTree<T> {
 
   public inOrderTraversal(action: Function): void {
     BinaryTreeTraversal.inOrder(action, this._root)
+  }
+
+  public isEmpty(): boolean {
+    return !this._root
   }
 
   private addVertex( node: BinarySearchTreeNode<T>, data: T ): void {
