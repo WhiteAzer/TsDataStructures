@@ -114,11 +114,11 @@ export class LinkedList<T> implements ILinkedList<T> {
   }
 
   public removeFirst(): T | null {
-    return this._head ? this.removeNode( this._head ) : null
+    return !this.isEmpty() ? this.removeNode( this._head ) : null
   }
 
   public removeLast(): T | null {
-    return this._tail ? this.removeNode( this._tail ) : null
+    return !this.isEmpty() ? this.removeNode( this._tail ) : null
   }
 
   public removeAll(): void {
@@ -140,7 +140,7 @@ export class LinkedList<T> implements ILinkedList<T> {
   }
 
   public isEmpty(): boolean {
-    return !this._head
+    return !(this._head && this._head.data)
   }
 
   public getLength(): number {

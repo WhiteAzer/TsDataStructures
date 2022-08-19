@@ -4,3 +4,5 @@ webpack.config.js
 .idea/
 dist/
 *.json
+src/scripts/index.ts
+src/index.html
